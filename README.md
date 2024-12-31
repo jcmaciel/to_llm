@@ -55,7 +55,7 @@ bundle install
 Once installed, the gem integrates with your Rails app via a Railtie that exposes one or more rake tasks. By default, you can run:
 
 ```bash
-rails to_llm:extract -[ALL|MODELS|CONTROLLERS|VIEWS|CONFIG|SCHEMA]
+rails to_llm:extract -[ALL|MODELS|CONTROLLERS|VIEWS|CONFIG|SCHEMA|JAVASCRIPT]
 ```
 
 Each of these commands will scan the relevant folders in your Rails app and produce text files containing all the code it finds.
@@ -73,6 +73,7 @@ Each of these commands will scan the relevant folders in your Rails app and prod
   - `app/helpers` -> `helpers.txt`  
   - `config` -> `config.txt` (including `config/initializers`)  
   - `db/schema.rb` -> `schema.txt`  
+  - `app/javascript` -> `javascript.txt`  
 - **Result**: Creates a folder named `to_llm/` with separate `.txt` files.
 
 ### 2. `rails to_llm:extract -MODELS`
@@ -134,6 +135,7 @@ This gem is intentionally minimalist. Feel free to fork or override these settin
      helpers.txt
      config.txt
      schema.txt
+     javascript.txt
    ```
 
 2. **Extract only views**:
