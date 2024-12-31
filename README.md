@@ -5,7 +5,7 @@ Below is an example of a **README.md** that you might include in your GitHub rep
 # to_llm
 
 [![Gem Version](https://badge.fury.io/rb/to_llm.svg)](https://badge.fury.io/rb/to_llm)
-[![Build Status](https://github.com/your_user/to_llm/actions/workflows/ci.yml/badge.svg)](https://github.com/your_user/to_llm/actions)
+[![Build Status](https://github.com/jcmaciel/to_llm/actions/workflows/ci.yml/badge.svg)](https://github.com/jcmaciel/to_llm/actions)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
 **to_llm** is a lightweight Ruby gem that provides a simple set of tasks (or commands) to extract code from a Rails application into text files. This is useful if you want to feed your Rails codebase into a Large Language Model (LLM) or any text-based analysis tool.
@@ -69,7 +69,7 @@ Each of these commands will scan the relevant folders in your Rails app and prod
 
 ## Commands
 
-### 1. `rails to_llm:extract ALL`
+### 1. `rails to_llm:extract -ALL`
 
 - **Description**: Extracts from all supported Rails directories:
   - `app/models` -> `models.txt`  
@@ -80,27 +80,27 @@ Each of these commands will scan the relevant folders in your Rails app and prod
   - `db/schema.rb` -> `schema.txt`  
 - **Result**: Creates a folder named `to_llm/` with separate `.txt` files.
 
-### 2. `rails to_llm:extract MODELS`
+### 2. `rails to_llm:extract -MODELS`
 
 - **Description**: Extracts only files from `app/models`.
 - **Output**: Creates (or overwrites) `to_llm/models.txt`.
 
-### 3. `rails to_llm:extract CONTROLLERS`
+### 3. `rails to_llm:extract -CONTROLLERS`
 
 - **Description**: Extracts only from `app/controllers`.
 - **Output**: `to_llm/controllers.txt`.
 
-### 4. `rails to_llm:extract VIEWS`
+### 4. `rails to_llm:extract -VIEWS`
 
 - **Description**: Extracts from `app/views`.
 - **Output**: `to_llm/views.txt`.
 
-### 5. `rails to_llm:extract CONFIG`
+### 5. `rails to_llm:extract -CONFIG`
 
 - **Description**: Extracts from `config`, including `config/initializers`.
 - **Output**: `to_llm/config.txt`.
 
-### 6. `rails to_llm:extract SCHEMA`
+### 6. `rails to_llm:extract -SCHEMA`
 
 - **Description**: Extracts only `db/schema.rb`.
 - **Output**: `to_llm/schema.txt`.
