@@ -127,7 +127,7 @@ This gem is intentionally minimalist. Feel free to fork or override these settin
    ```
    Generates:
    ```
-   extracted_files/
+   to_llm/
      models.txt
      controllers.txt
      views.txt
