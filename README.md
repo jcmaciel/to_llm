@@ -1,7 +1,3 @@
-Below is an example of a **README.md** that you might include in your GitHub repository for a gem named **to_llm**. Feel free to adjust any sections (e.g., badges, license, usage details) to match your project’s specifics.
-
----
-
 # to_llm
 
 [![Gem Version](https://badge.fury.io/rb/to_llm.svg)](https://badge.fury.io/rb/to_llm)
