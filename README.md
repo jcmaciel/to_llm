@@ -142,7 +142,7 @@ This gem is intentionally minimalist. Feel free to fork or override these settin
    ```
    Generates:
    ```
-   extracted_files/
+   to_llm/
      views.txt
    ```
    (Note that any previously existing files in `to_llm` will be untouched or overwritten if they have the same filename.)
