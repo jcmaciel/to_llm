@@ -1,7 +1,6 @@
 # to_llm
 
 [![Gem Version](https://badge.fury.io/rb/to_llm.svg)](https://badge.fury.io/rb/to_llm)
-[![Build Status](https://github.com/jcmaciel/to_llm/actions/workflows/ci.yml/badge.svg)](https://github.com/jcmaciel/to_llm/actions)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
 **to_llm** is a lightweight Ruby gem that provides a simple set of tasks (or commands) to extract code from a Rails application into text files. This is useful if you want to feed your Rails codebase into a Large Language Model (LLM) or any text-based analysis tool.
