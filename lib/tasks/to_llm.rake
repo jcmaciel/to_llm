@@ -28,22 +28,25 @@ namespace :to_llm do
       "app/controllers" => "controllers.txt",
       "app/views"       => "views.txt",
       "app/helpers"     => "helpers.txt",
-      "config"          => "config.txt", 
+      "app/javascript"  => "javascript.txt",
+      "config"          => "config.txt",
       "db/schema.rb"    => "schema.txt"
     }
 
     # We can filter which directories to process based on the user input
     filter_map = {
-      "ALL"         => %w[app/models app/controllers app/views app/helpers config db/schema.rb],
+      "ALL"         => %w[app/models app/controllers app/views app/helpers app/javascript config db/schema.rb],
       "MODELS"      => %w[app/models],
       "CONTROLLERS" => %w[app/controllers],
       "VIEWS"       => %w[app/views],
       "CONFIG"      => %w[config],
-      "SCHEMA"      => %w[db/schema.rb]
+      "SCHEMA"      => %w[db/schema.rb],
+      "JAVASCRIPT" => %w[app/javascript],
+      "HELPERS" => %w[app/helpers]
     }
 
     # Define which extensions you want to extract
-    file_extensions = %w[.rb .erb .js .yml]
+    file_extensions = %w[.rb .erb .js .yml .ts .tsx]
 
     directories_to_files.values.each do |filename|
       file_path = File.join(output_dir, filename)
