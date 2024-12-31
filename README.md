@@ -101,6 +101,16 @@ Each of these commands will scan the relevant folders in your Rails app and prod
 - **Description**: Extracts only `db/schema.rb`.
 - **Output**: `to_llm/schema.txt`.
 
+### 7. `rails to_llm:extract -JAVASCRIPT`
+
+- **Description**: Extracts only from `app/javascript`.
+- **Output**: `to_llm/javascript.txt`.
+
+### 8. `rails to_llm:extract -HELPERS`
+
+- **Description**: Extracts only from `app/helpers`.
+- **Output**: `to_llm/helpers.txt`.
+
 ---
 
 ## Configuration
