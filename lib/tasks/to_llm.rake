@@ -119,8 +119,11 @@ namespace :to_llm do
        "Examples:\n" \
        "  rails \"to_llm:extract[ALL,md]\"\n" \
        "  rails \"to_llm:extract[MODELS,txt]\""
-  task :extract, [:type_and_format] => :environment do |_t, args|
-    if args[:type_and_format].blank?
+  task :extract, [:type, :format] => :environment do |_t, args|
+    type   = (args[:type]   || "ALL").upcase
+    format = (args[:format] || "txt").downcase
+
+    if args[:type].blank? || args[:format].blank?
       # No parameters passed -> show help message
       puts "--------------------------------------------------------------------"
       puts "Usage: rails \"to_llm:extract[TYPE,FORMAT]\""
@@ -133,9 +136,7 @@ namespace :to_llm do
       next
     end
 
-    # Attempt to parse "TYPE,FORMAT"
-    type, format = args[:type_and_format].split(",")
-
+    
     if format.nil?
       # Old usage
       puts "You are using the old usage: rails to_llm:extract #{type}"
