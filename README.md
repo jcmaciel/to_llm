@@ -1,178 +1,75 @@
 # to_llm
 
 [![Gem Version](https://badge.fury.io/rb/to_llm.svg)](https://badge.fury.io/rb/to_llm)
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
-**to_llm** is a lightweight Ruby gem that provides a simple set of tasks (or commands) to extract code from a Rails application into text files. This is useful if you want to feed your Rails codebase into a Large Language Model (LLM) or any text-based analysis tool.
-
----
-
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Configuration](#configuration)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [License](#license)
-
----
+**to_llm** is a lightweight Ruby gem that allows you to extract code from your Rails application into text files. It’s especially handy if you want to feed your Rails codebase into a Large Language Model (LLM) or any text-based analysis tool.
 
 ## Features
 
-- **Simple extraction**: Automatically scans your Rails app for files in `app/models`, `app/views`, `app/controllers`, etc.  
-- **Configurable**: By default, extracts `.rb`, `.erb`, `.js`, and `.yml` file types, but you can easily adjust.  
-- **Rake tasks**: Provides a Rake task (`to_llm:extract`) to keep usage straightforward.  
-- **Keeps files separate**: Creates separate `.txt` output files (e.g., `models.txt`, `views.txt`) for easier organization (or combine them, if you prefer).
-
----
+- **Simple extraction**: Automatically scans core Rails directories (`app/models`, `app/controllers`, `app/views`, etc.).
+- **Configurable**: Extracts `.rb`, `.erb`, `.js`, `.yml`, `.ts`, and `.tsx` by default; easy to adjust.
+- **Rake tasks**: Single entry point for extracting everything or selective directories.
+- **Flexible formats**: Outputs to `.txt` or `.md`.
 
 ## Installation
 
-Add this line to your Rails project’s `Gemfile`:
+Add to your `Gemfile`:
 
 ```ruby
-gem 'to_llm', git: 'https://github.com/jcmaciel/to_llm.git'
+gem 'to_llm'
 ```
-
-> Or using RubyGems
-> ```ruby
-> gem 'to_llm'
-> ```
-
-Then execute:
+And then:
 
 ```bash
 bundle install
 ```
 
----
+*(Alternatively, you can point `gem 'to_llm', git: 'https://github.com/jcmaciel/to_llm.git'` to the GitHub repo.)*
 
 ## Usage
 
-Once installed, the gem integrates with your Rails app via a Railtie that exposes one or more rake tasks. By default, you can run:
+With **v0.1.3**, you can run the following commands inside your Rails app:
 
 ```bash
-rails to_llm:extract -[ALL|MODELS|CONTROLLERS|VIEWS|CONFIG|SCHEMA|JAVASCRIPT]
+rails "to_llm:extract[TYPE,FORMAT]"
 ```
 
-Each of these commands will scan the relevant folders in your Rails app and produce text files containing all the code it finds.
+Where:
+- **TYPE** can be `ALL`, `MODELS`, `CONTROLLERS`, `VIEWS`, `CONFIG`, `SCHEMA`, `JAVASCRIPT`, `HELPERS`.
+- **FORMAT** can be `txt` or `md`.
 
----
+**Examples**:
 
-## Commands
-
-### 1. `rails to_llm:extract -ALL`
-
-- **Description**: Extracts from all supported Rails directories:
-  - `app/models` -> `models.txt`  
-  - `app/controllers` -> `controllers.txt`  
-  - `app/views` -> `views.txt`  
-  - `app/helpers` -> `helpers.txt`  
-  - `config` -> `config.txt` (including `config/initializers`)  
-  - `db/schema.rb` -> `schema.txt`  
-  - `app/javascript` -> `javascript.txt`  
-- **Result**: Creates a folder named `to_llm/` with separate `.txt` files.
-
-### 2. `rails to_llm:extract -MODELS`
-
-- **Description**: Extracts only files from `app/models`.
-- **Output**: Creates (or overwrites) `to_llm/models.txt`.
-
-### 3. `rails to_llm:extract -CONTROLLERS`
-
-- **Description**: Extracts only from `app/controllers`.
-- **Output**: `to_llm/controllers.txt`.
-
-### 4. `rails to_llm:extract -VIEWS`
-
-- **Description**: Extracts from `app/views`.
-- **Output**: `to_llm/views.txt`.
-
-### 5. `rails to_llm:extract -CONFIG`
-
-- **Description**: Extracts from `config`, including `config/initializers`.
-- **Output**: `to_llm/config.txt`.
-
-### 6. `rails to_llm:extract -SCHEMA`
-
-- **Description**: Extracts only `db/schema.rb`.
-- **Output**: `to_llm/schema.txt`.
-
-### 7. `rails to_llm:extract -JAVASCRIPT`
-
-- **Description**: Extracts only from `app/javascript`.
-- **Output**: `to_llm/javascript.txt`.
-
-### 8. `rails to_llm:extract -HELPERS`
-
-- **Description**: Extracts only from `app/helpers`.
-- **Output**: `to_llm/helpers.txt`.
-
----
-
-## Configuration
-
-If you want to customize what extensions are included or which directories map to which output files, open the `lib/tasks/to_llm.rake` file (inside this gem) and edit:
-
-```ruby
-file_extensions = %w[.rb .erb .js .yml]
-directories_to_files = {
-  "app/models"      => "models.txt",
-  "app/controllers" => "controllers.txt",
-  # ...
-}
-```
-
-This gem is intentionally minimalist. Feel free to fork or override these settings in your local app.
-
----
+1. Extract *everything* to Markdown:
+   ```bash
+   rails "to_llm:extract[ALL,md]"
+   ```
+2. Extract only models to plain text:
+   ```bash
+   rails "to_llm:extract[MODELS,txt]"
+   ```
+3. If you omit the second parameter, it defaults to `.txt` (old usage triggers a warning but still works).
 
 ## Examples
 
-1. **Extract everything**:
-   ```bash
-   rails to_llm:extract -ALL
-   ```
-   Generates:
-   ```
-   to_llm/
-     models.txt
-     controllers.txt
-     views.txt
-     helpers.txt
-     config.txt
-     schema.txt
-     javascript.txt
-   ```
+- **Extract everything**:
+  ```bash
+  rails "to_llm:extract[ALL,md]"
+  ```
+  Produces a `to_llm/` folder with separate `.md` files (e.g., `models.md`, `views.md`, etc.).
 
-2. **Extract only views**:
-   ```bash
-   rails to_llm:extract -VIEWS
-   ```
-   Generates:
-   ```
-   to_llm/
-     views.txt
-   ```
-   (Note that any previously existing files in `to_llm` will be untouched or overwritten if they have the same filename.)
-
----
+- **Extract only controllers**:
+  ```bash
+  rails "to_llm:extract[CONTROLLERS,txt]"
+  ```
+  Creates/overwrites `to_llm/controllers.txt`.
 
 ## Contributing
 
-1. Fork the repo on GitHub.
-2. Create a new branch for your feature (`git checkout -b my-new-feature`).
+1. Fork the repository.
+2. Create a new branch (`git checkout -b my-new-feature`).
 3. Commit your changes (`git commit -am 'Add new feature'`).
 4. Push to your branch (`git push origin my-new-feature`).
-5. Create a Pull Request on GitHub.
+5. Open a Pull Request on GitHub.
 
-We welcome issues, PRs, and general feedback!
-
----
-
-## License
-
-This project is available as open source under the terms of the [MIT License](./LICENSE.txt). Feel free to use it in your own projects.
+Feedback, issues, and PRs are always welcome!
