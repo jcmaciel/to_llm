@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "to_llm"
-  spec.version       = "0.1.4"
+  spec.version       = "0.1.5"
   spec.authors       = ["José Carlos Maciel"]
   spec.email         = ["jcmacielp@gmail.com"]
   spec.summary       = %q{Extracts code from a Rails project to text files for LLM usage.}

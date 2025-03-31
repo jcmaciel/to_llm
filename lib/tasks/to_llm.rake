@@ -2,6 +2,11 @@
 # frozen_string_literal: true
 
 namespace :to_llm do
+  def clean_content(content)
+    cleaned = content.lines.map(&:strip).join("\n")
+    cleaned.gsub(/\n{2,}/, "\n")
+  end
+
   def run_extraction(extract_type, output_format)
     extract_type  = extract_type&.upcase || "ALL"
     output_format = output_format&.downcase || "txt"
@@ -58,6 +63,7 @@ namespace :to_llm do
 
     # Writes file content in either txt or md format
     def write_content(path, content, output_format, output_file)
+      content = clean_content(content)
       if output_format == "md"
         language = detect_language(File.extname(path))
         <<~MARKDOWN
@@ -70,7 +76,7 @@ namespace :to_llm do
         # txt format
         <<~TXT
           #{path}:
-          ----------------------------------------------------
+          -
           #{content}
 
         TXT
