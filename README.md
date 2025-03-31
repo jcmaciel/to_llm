@@ -28,7 +28,7 @@ bundle install
 
 ## Usage
 
-With **v0.1.3**, you can run the following commands inside your Rails app:
+With **v0.1.4**, you can run the following commands inside your Rails app:
 
 ```bash
 rails "to_llm:extract[TYPE,FORMAT]"
